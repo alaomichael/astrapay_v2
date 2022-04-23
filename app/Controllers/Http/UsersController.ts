@@ -8,7 +8,7 @@ export default class UsersController {
     return investments
   }
 
-  public async forumsByUser({ auth }: HttpContextContract) {
+  public async forumsByUser({ }: HttpContextContract) {
     // const user = await auth.authenticate()
     // await user.preload('forums')
     // const forums = user.forums
