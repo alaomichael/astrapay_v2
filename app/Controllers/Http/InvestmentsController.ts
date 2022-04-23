@@ -2,11 +2,11 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Investment from 'App/Models/Investment'
 
 export default class InvestmentsController {
-  public async index({ request }: HttpContextContract) {
+  public async index({}: HttpContextContract) {
     const investment = await Investment.query().preload('user')
     return investment
   }
-  public async show({ request, params }: HttpContextContract) {
+  public async show({ params }: HttpContextContract) {
     try {
       const investment = await Investment.find(params.id)
       if (investment) {
@@ -19,7 +19,7 @@ export default class InvestmentsController {
     }
   }
 
-  public async update({ auth, request, params }: HttpContextContract) {
+  public async update({ request, params }: HttpContextContract) {
     const investment = await Investment.find(params.id)
     if (investment) {
       investment.title = request.input('title')
@@ -34,7 +34,7 @@ export default class InvestmentsController {
     return // 401
   }
 
-  public async store({ auth, request, response }: HttpContextContract) {
+  public async store({ auth, request }: HttpContextContract) {
     const user = await auth.authenticate()
     const investment = new Investment()
     investment.title = request.input('title')
@@ -43,12 +43,13 @@ export default class InvestmentsController {
     await user.related('investments').save(investment)
     return investment
   }
-  public async destroy({ response, auth, request, params }: HttpContextContract) {
+  public async destroy({ response, auth, params }: HttpContextContract) {
     const user = await auth.authenticate()
     const investment = await Investment.query()
       .where('user_id', user.id)
       .where('id', params.id)
       .delete()
+    console.log('Deleted data:', investment)
     return response.redirect('/dashboard')
   }
 }
