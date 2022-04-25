@@ -8,16 +8,40 @@ export default class Investment extends BaseModel {
   public id: number
 
   @column()
-  public title: string
+  public amount: number
 
   @column()
-  public content: string
+  public period: string
 
   @column()
-  public forumId: number
+  public walletId: number
 
   @column()
   public userId: number
+
+  @column()
+  public rolloverType: string
+
+  @column()
+  public tagName: string
+
+  @column()
+  public currencyCode: string
+
+  @column()
+  public long: number
+
+  @column()
+  public lat: number
+
+  @column()
+  public walletHolderDetails: JSON
+
+  @column.dateTime({ autoCreate: false })
+  public payoutDate: DateTime
+
+  @column()
+  public interestRate: number
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

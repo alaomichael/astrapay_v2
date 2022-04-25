@@ -8,15 +8,30 @@ export type AddressAttributes = {
   state: string
   city: string
   street: string
-  long: decimal
+  long: number
   lat: number
 }
+
+type DocumentType = 'INTERNATIONAL_PASSPORT' | 'NIN' | 'BVN' | 'UTILITY_BILL' | 'DRIVERS_LICENSE'
+
+export type DocumentAttributes = {
+  type: DocumentType
+  documentId: string
+  docFrontImageUrl: string
+  docBackImageUrl: string
+  expiryDate: Date
+}
+
+type AccountType = 'savings' | 'current';
 export default class User extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
   @column()
-  public name: string
+  public firstName: string
+
+  @column()
+  public lastName: string
 
   @column()
   public email: string
@@ -44,6 +59,21 @@ export default class User extends BaseModel {
 
   @column()
   public address: AddressAttributes
+
+  @column()
+  public accountType: AccountType
+
+  @column()
+  public branchCode: string
+
+  @column()
+  public smsNotification: boolean
+
+  @column()
+  public emailNotification: boolean
+
+  @column()
+  public documents: DocumentAttributes[]
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
