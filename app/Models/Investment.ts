@@ -28,8 +28,4 @@ export default class Investment extends BaseModel {
   // Relationship
   @belongsTo(() => User)
   public user: BelongsTo<typeof User>
-
-  // Relationship
-  // @belongsTo(() => Forum)
-  // public forum: BelongsTo<typeof Forum>
 }

@@ -3,6 +3,14 @@ import Investment from 'App/Models/Investment'
 import Hash from '@ioc:Adonis/Core/Hash'
 import { column, beforeSave, BaseModel, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
 
+export type AddressAttributes = {
+  country: string
+  state: string
+  city: string
+  street: string
+  long: decimal
+  lat: number
+}
 export default class User extends BaseModel {
   @column({ isPrimary: true })
   public id: number
@@ -18,6 +26,24 @@ export default class User extends BaseModel {
 
   @column()
   public rememberMeToken?: string
+
+  @column()
+  public phoneNumber: string
+
+  @column()
+  public accountName: string
+
+  @column()
+  public accountNumber: string
+
+  @column()
+  public gender: string
+
+  @column.dateTime({ autoCreate: false })
+  public dateOfBirth: DateTime
+
+  @column()
+  public address: AddressAttributes
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
