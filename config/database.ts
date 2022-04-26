@@ -6,10 +6,11 @@
  */
 
 import Env from '@ioc:Adonis/Core/Env'
-import { OrmConfig } from '@ioc:Adonis/Lucid/Orm'
 import { DatabaseConfig } from '@ioc:Adonis/Lucid/Database'
+const { knexSnakeCaseMappers } = require('objection')
+// const Knex = require('knex')
 
-const databaseConfig: DatabaseConfig & { orm: Partial<OrmConfig> } = {
+const databaseConfig: DatabaseConfig = {
   /*
   |--------------------------------------------------------------------------
   | Connection
@@ -34,33 +35,52 @@ const databaseConfig: DatabaseConfig & { orm: Partial<OrmConfig> } = {
     | npm i pg
     |
     */
+    // pg: Knex({
+    //   client: 'postgres',
+    //   connection: {
+    //     host: Env.get('PG_HOST'),
+    //     port: Env.get('PG_PORT'),
+    //     user: Env.get('PG_USER'),
+    //     password: Env.get('PG_PASSWORD', ''),
+    //     database: Env.get('PG_DB_NAME'),
+    //   },
+    //   migrations: {
+    //     naturalSort: true,
+    //   },
+    //   healthCheck: false,
+    //   debug: false,
+    //   knexSnakeCaseMappers({})
+    // })
+    // pg: {
+    //   client: 'pg',
+    //   connection: {
+    //     host: Env.get('PG_HOST'),
+    //     port: Env.get('PG_PORT'),
+    //     user: Env.get('PG_USER'),
+    //     password: Env.get('PG_PASSWORD', ''),
+    //     database: Env.get('PG_DB_NAME'),
+    //   },
+    //   migrations: {
+    //     naturalSort: true,
+    //   },
+    //   healthCheck: false,
+    //   debug: false,
+    // },
     pg: {
-      client: 'pg',
-      connection: {
-        host: Env.get('PG_HOST'),
-        port: Env.get('PG_PORT'),
-        user: Env.get('PG_USER'),
-        password: Env.get('PG_PASSWORD', ''),
-        database: Env.get('PG_DB_NAME'),
+      ...{
+        client: 'pg',
+        connection: {
+          host: Env.get('DB_HOST', 'localhost'),
+          port: Env.get('DB_PORT', ''),
+          user: Env.get('DB_USER', 'root'),
+          password: Env.get('DB_PASSWORD', ''),
+          database: Env.get('DB_DATABASE', 'adonis'),
+        },
+        debug: Env.get('DB_DEBUG', false),
       },
-      healthCheck: false,
-      debug: false,
+      ...knexSnakeCaseMappers(),
     },
   },
-
-  /*
-  |--------------------------------------------------------------------------
-  | ORM Configuration
-  |--------------------------------------------------------------------------
-  |
-  | Following are some of the configuration options to tweak the conventional
-  | settings of the ORM. For example:
-  |
-  | - Define a custom function to compute the default table name for a given model.
-  | - Or define a custom function to compute the primary key for a given model.
-  |
-  */
-  orm: {},
 }
 
 export default databaseConfig
