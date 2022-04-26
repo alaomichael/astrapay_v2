@@ -22,8 +22,8 @@ export default class InvestmentsController {
   public async update({ request, params }: HttpContextContract) {
     const investment = await Investment.find(params.id)
     if (investment) {
-      investment.title = request.input('title')
-      investment.content = request.input('content')
+      investment.amount = request.input('amount')
+      investment.period = request.input('period')
       if (await investment.save()) {
         await investment.preload('user')
         // await investment.preload('forum')
@@ -37,8 +37,8 @@ export default class InvestmentsController {
   public async store({ auth, request }: HttpContextContract) {
     const user = await auth.authenticate()
     const investment = new Investment()
-    investment.title = request.input('title')
-    investment.content = request.input('content')
+    investment.amount = request.input('amount')
+    investment.period = request.input('period')
     // investment.forumId = request.input('forum');
     await user.related('investments').save(investment)
     return investment

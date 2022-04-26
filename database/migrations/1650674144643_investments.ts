@@ -8,7 +8,7 @@ export default class Investments extends BaseSchema {
       table.increments('id')
       table.integer('amount', 255).notNullable()
       table.string('period', 255).notNullable()
-      table.integer('user_id', 180).notNullable()
+      table.integer('user_id').notNullable()
       table.integer('walletId').nullable()
       table.string('rolloverType', 255).notNullable()
       table.string('tagName', 255).notNullable()

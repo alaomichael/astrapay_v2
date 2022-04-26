@@ -1,9 +1,10 @@
 import { DateTime } from 'luxon'
 import User from 'App/Models/User'
 
-import { BaseModel, column, belongsTo, BelongsTo } from '@ioc:Adonis/Lucid/Orm'
+import { column, belongsTo, BelongsTo } from '@ioc:Adonis/Lucid/Orm'
 
-export default class Investment extends BaseModel {
+import AppBaseModel from 'App/Models/AppBaseModel'
+export default class Investment extends AppBaseModel {
   @column({ isPrimary: true })
   public id: number
 

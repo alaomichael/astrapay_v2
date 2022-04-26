@@ -7,8 +7,8 @@ export default class ApiTokens extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').primary()
       table.integer('user_id').unsigned().references('id').inTable('users').onDelete('CASCADE')
-      table.string('firstName', 255).notNullable()
-      table.string('lastName', 255).notNullable()
+      table.string('first_name', 255).notNullable()
+      table.string('last_name', 255).notNullable()
       table.string('type').notNullable()
       table.string('token', 64).notNullable()
 

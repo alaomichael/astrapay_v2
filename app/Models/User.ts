@@ -1,7 +1,10 @@
 import { DateTime } from 'luxon'
 import Investment from 'App/Models/Investment'
 import Hash from '@ioc:Adonis/Core/Hash'
-import { column, beforeSave, BaseModel, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
+import { column, beforeSave, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
+
+// 👇 import our AppBaseModel instead
+import AppBaseModel from 'App/Models/AppBaseModel'
 
 export type AddressAttributes = {
   country: string
@@ -22,8 +25,10 @@ export type DocumentAttributes = {
   expiryDate: Date
 }
 
-type AccountType = 'savings' | 'current';
-export default class User extends BaseModel {
+type AccountType = 'savings' | 'current'
+export default class User extends AppBaseModel {
+
+
   @column({ isPrimary: true })
   public id: number
 
