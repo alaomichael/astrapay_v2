@@ -10,7 +10,7 @@ export default class Investments extends BaseSchema {
       table.string('period', 255).unsigned().notNullable()
       table.integer('user_id').notNullable()
       table.integer('wallet_id').unsigned().nullable()
-      table.string('rollover_yype', 255).unsigned().notNullable()
+      table.string('rollover_type', 255).unsigned().notNullable()
       table.string('tag_name', 255).notNullable()
       table.string('currency_code', 255).notNullable()
       table.float('long').unsigned().nullable()

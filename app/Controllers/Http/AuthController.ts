@@ -47,7 +47,7 @@ export default class AuthController {
     newUser.emailNotification = JSON.stringify(emailNotification)
     newUser.documents = JSON.stringify(documents)
     newUser.branchCode = branchCode
-    console.log(newUser)
+    // console.log(newUser)
     await newUser.save()
     const token = await auth.use('api').login(newUser, {
       expiresIn: '10 days',
