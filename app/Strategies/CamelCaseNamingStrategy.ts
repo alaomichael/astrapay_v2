@@ -6,10 +6,8 @@
 //   }
 // }
 
-
-
 import { string } from '@poppinss/utils/build/helpers'
-import {  NamingStrategyContract, LucidModel, ModelRelations } from '@ioc:Adonis/Lucid/Orm'
+import { NamingStrategyContract, LucidModel, ModelRelations } from '@ioc:Adonis/Lucid/Orm'
 
 /**
  * Uses snake case as the naming strategy for different model properties

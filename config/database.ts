@@ -70,13 +70,17 @@ const databaseConfig: DatabaseConfig = {
       ...{
         client: 'pg',
         connection: {
-          host: Env.get('DB_HOST', 'localhost'),
-          port: Env.get('DB_PORT', ''),
-          user: Env.get('DB_USER', 'root'),
-          password: Env.get('DB_PASSWORD', ''),
-          database: Env.get('DB_DATABASE', 'adonis'),
+          host: Env.get('PG_HOST', 'localhost'),
+          port: Env.get('PG_PORT', ''),
+          user: Env.get('PG_USER', 'postgres'),
+          password: Env.get('PG_PASSWORD', 'password'),
+          database: Env.get('PG_DB_NAME', 'investment'),
         },
-        debug: Env.get('DB_DEBUG', false),
+        migrations: {
+          naturalSort: true,
+        },
+        healthCheck: false,
+        debug: false,
       },
       ...knexSnakeCaseMappers(),
     },
