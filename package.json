@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "node ace serve --watch",
     "build": "node ace build --production",
+     "start:prod": "node ./build/server.js",
     "start": "node server.js",
     "lint": "eslint . --ext=.ts",
     "format": "prettier --write .",
@@ -59,6 +60,7 @@
     "@adonisjs/lucid": "^16.3.2",
     "@adonisjs/repl": "^3.1.10",
     "@adonisjs/session": "^6.1.2",
+    "adonis-jsonable": "^0.2.1",
     "knex": "^2.0.0",
     "luxon": "^2.3.2",
     "objection": "^3.0.1",
@@ -67,5 +69,8 @@
     "proxy-addr": "^2.0.7",
     "reflect-metadata": "^0.1.13",
     "source-map-support": "^0.5.21"
-  }
+  },
+  "engines": {
+    "node": "^16.14.2"
+}
 }

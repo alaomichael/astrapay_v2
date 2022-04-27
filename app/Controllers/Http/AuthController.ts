@@ -27,10 +27,6 @@ export default class AuthController {
     const emailNotification = request.input('emailNotification')
     const documents = request.input('documents')
     const branchCode = request.input('branchCode')
-    // const dateOfBirth = request.input('dateOfBirth')
-    // const address = request.input('address')
-    // const accountType = request.input('accountType')
-    // const smsNotification = request.input('smsNotification')
 
     /**
      * Create a new user
@@ -38,7 +34,7 @@ export default class AuthController {
     const newUser = new User()
     newUser.email = email
     newUser.password = password
-    newUser.firstName = firstName
+    newUser.name = firstName
     newUser.lastName = lastName
     newUser.gender = gender
     newUser.phoneNumber = phoneNumber
@@ -46,11 +42,12 @@ export default class AuthController {
     newUser.accountNumber = accountNumber
     newUser.accountType = accountType
     newUser.dateOfBirth = dateOfBirth
-    newUser.address = address
-    newUser.smsNotification = smsNotification
-    newUser.emailNotification = emailNotification
-    newUser.documents = documents
+    newUser.address = JSON.stringify(address)
+    newUser.smsNotification = JSON.stringify(smsNotification)
+    newUser.emailNotification = JSON.stringify(emailNotification)
+    newUser.documents = JSON.stringify(documents)
     newUser.branchCode = branchCode
+    console.log(newUser)
     await newUser.save()
     const token = await auth.use('api').login(newUser, {
       expiresIn: '10 days',

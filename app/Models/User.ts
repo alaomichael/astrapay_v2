@@ -1,7 +1,15 @@
 import { DateTime } from 'luxon'
 import Investment from 'App/Models/Investment'
 import Hash from '@ioc:Adonis/Core/Hash'
-import { BaseModel, column, beforeSave, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
+import {
+  BaseModel,
+  column,
+  beforeSave,
+  hasMany,
+  HasMany,
+  afterFetch,
+  afterFind,
+} from '@ioc:Adonis/Lucid/Orm'
 
 export type AddressAttributes = {
   country: string
@@ -28,7 +36,7 @@ export default class User extends BaseModel {
   public id: number
 
   @column()
-  public firstName: string
+  public name: string
 
   @column()
   public lastName: string
@@ -58,7 +66,7 @@ export default class User extends BaseModel {
   public dateOfBirth: DateTime
 
   @column()
-  public address: AddressAttributes
+  public address: string
 
   @column()
   public accountType: AccountType
@@ -67,13 +75,13 @@ export default class User extends BaseModel {
   public branchCode: string
 
   @column()
-  public smsNotification: boolean
+  public smsNotification: string
 
   @column()
-  public emailNotification: boolean
+  public emailNotification: string
 
   @column()
-  public documents: DocumentAttributes[]
+  public documents: string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
@@ -88,6 +96,27 @@ export default class User extends BaseModel {
   public static async hashPassword(user: User) {
     if (user.$dirty.password) {
       user.password = await Hash.make(user.password)
+    }
+  }
+
+  @beforeSave()
+  public static async stringifyJson(user: User) {
+    if (user.$dirty.address) {
+      user.address = await JSON.stringify(user.address)
+    }
+  }
+
+  @afterFetch()
+  public static async parseJsonAfterFetch(user: User) {
+    if (user.$dirty.address) {
+      user.address = await JSON.parse(user.address)
+    }
+  }
+
+  @afterFind()
+  public static async parseJsonAfterFind(user: User) {
+    if (user.$dirty.address) {
+      user.address = await JSON.parse(user.address)
     }
   }
 }

@@ -15,7 +15,7 @@ export default class Investments extends BaseSchema {
       table.string('currency_code', 255).notNullable()
       table.float('long').unsigned().nullable()
       table.float('lat').unsigned().nullable()
-      table.json('wallet_holder_details').notNullable()
+      table.jsonb('wallet_holder_details').notNullable()
       table.date('payout_date').notNullable()
       table.float('interest_rate').unsigned().notNullable()
       table.timestamps(true)
