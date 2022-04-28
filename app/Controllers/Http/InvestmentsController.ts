@@ -9,14 +9,17 @@ export default class InvestmentsController {
     console.log('INVESTMENT: ', investment)
     return investment
   }
-  public async show({ params }: HttpContextContract) {
+  public async show({ params, response }: HttpContextContract) {
+    console.log('INVESTMENT params: ', params)
     try {
-      const investment = await Investment.query().where('id', params.id)
+      const investment = await Investment.query().where('user_id', params.id)
       if (investment) {
-        await investment.find(params.id)
-        // await investment
-        // await investment.preload('forum');
-        return investment
+        console.log(
+          'INVESTMENT: ',
+          investment.map((inv) => inv)
+        )
+        // return investment
+        return response.status(200).json(investment)
       }
     } catch (error) {
       console.log(error)

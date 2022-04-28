@@ -31,7 +31,7 @@ Route.group(() => {
     Route.resource('investments', 'InvestmentsController').apiOnly()
     Route.resource('users', 'UsersController').apiOnly()
     // Route.get('users/forums', 'UsersController.forumsByUser')
-    // Route.get('investments', 'InvestmentsController.index')
+    Route.get('investments/:userId', 'InvestmentsController.show')
     Route.get('users/investments', 'UsersController.investmentsByUser')
   })
   // .middleware('auth:api')
