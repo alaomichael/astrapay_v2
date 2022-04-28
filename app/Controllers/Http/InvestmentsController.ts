@@ -3,17 +3,18 @@ import Investment from 'App/Models/Investment'
 import { schema, rules } from '@ioc:Adonis/Core/Validator'
 
 export default class InvestmentsController {
-  public async index({ params }: HttpContextContract) {
+  public async index({}: HttpContextContract) {
     // const investment = await Investment.query().preload('user')
-    const investment = await Investment.findOrFail(params.id)
+    const investment = await Investment.all()
     console.log('INVESTMENT: ', investment)
     return investment
   }
   public async show({ params }: HttpContextContract) {
     try {
-      const investment = await Investment.find(params.id)
+      const investment = await Investment.query().where('id', params.id)
       if (investment) {
-        await investment.preload('user')
+        await investment.find(params.id)
+        // await investment
         // await investment.preload('forum');
         return investment
       }
@@ -40,18 +41,16 @@ export default class InvestmentsController {
   public async store({ request, response }) {
     const investmentSchema = schema.create({
       amount: schema.number(),
-      rolloverType: schema.string({ escape: true }, [rules.maxLength(1000)]),
-      period: schema.string({ escape: true }, [rules.maxLength(1000)]),
-      user_id: schema.number(),
-      wallet_id: schema.number(),
-      rollover_type: schema.string({ escape: true }, [rules.maxLength(1000)]),
-      tag_name: schema.string({ escape: true }, [rules.maxLength(1000)]),
-      currency_code: schema.string({ escape: true }, [rules.maxLength(1000)]),
+      rolloverType: schema.string({ escape: true }, [rules.maxLength(3)]),
+      period: schema.string({ escape: true }, [rules.maxLength(100)]),
+      userId: schema.number(),
+      tagName: schema.string({ escape: true }, [rules.maxLength(150)]),
+      currencyCode: schema.string({ escape: true }, [rules.maxLength(5)]),
       long: schema.number(),
       lat: schema.number(),
-      wallet_holder_details: schema.string({ escape: true }, [rules.maxLength(1000)]),
-      payout_date: schema.date(),
-      interest_rate: schema.number(),
+      walletHolderDetails: schema.string({ escape: true }),
+      payoutDate: schema.date(),
+      interestRate: schema.number(),
     })
 
     const payload: any = await request.validate({ schema: investmentSchema })

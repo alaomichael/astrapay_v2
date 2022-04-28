@@ -99,24 +99,24 @@ export default class User extends BaseModel {
     }
   }
 
-  @beforeSave()
-  public static async stringifyJson(user: User) {
-    if (user.$dirty.address) {
-      user.address = await JSON.stringify(user.address)
-    }
-  }
+  // @beforeSave()
+  // public static async stringifyJson(user: User) {
+  //   if (user.$dirty.address) {
+  //     user.address = await JSON.stringify(user.address)
+  //   }
+  // }
 
-  @afterFetch()
-  public static async parseJsonAfterFetch(user: User) {
-    if (user.$dirty.address) {
-      user.address = await JSON.parse(user.address)
-    }
-  }
+  // @afterFetch()
+  // public static async parseJsonAfterFetch(user: User) {
+  //   if (user.$dirty.address) {
+  //     user.address = await JSON.parse(user.address)
+  //   }
+  // }
 
-  @afterFind()
-  public static async parseJsonAfterFind(user: User) {
-    if (user.$dirty.address) {
-      user.address = await JSON.parse(user.address)
-    }
-  }
+  // @afterFind()
+  // public static async parseJsonAfterFind(user: User) {
+  //   if (user.$dirty.address) {
+  //     user.address = await JSON.parse(user.address)
+  //   }
+  // }
 }

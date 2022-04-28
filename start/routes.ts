@@ -33,5 +33,6 @@ Route.group(() => {
     // Route.get('users/forums', 'UsersController.forumsByUser')
     // Route.get('investments', 'InvestmentsController.index')
     Route.get('users/investments', 'UsersController.investmentsByUser')
-  }).middleware('auth:api')
+  })
+  // .middleware('auth:api')
 }).prefix('api/v2')
