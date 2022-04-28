@@ -38,7 +38,7 @@ export default class InvestmentsController {
     return // 401
   }
 
-  public async store({ request, response }) {
+  public async store({ request }: HttpContextContract) {
     const investmentSchema = schema.create({
       amount: schema.number(),
       rolloverType: schema.string({ escape: true }, [rules.maxLength(3)]),
@@ -48,9 +48,30 @@ export default class InvestmentsController {
       currencyCode: schema.string({ escape: true }, [rules.maxLength(5)]),
       long: schema.number(),
       lat: schema.number(),
-      walletHolderDetails: schema.string({ escape: true }),
-      payoutDate: schema.date(),
-      interestRate: schema.number(),
+      walletHolderDetails: schema.object().members({
+        firstName: schema.string(),
+        lastName: schema.string(),
+        phone: schema.number(),
+        investorFundingWalletId: schema.string(),
+      }),
+    })
+    const payload: any = await request.validate({ schema: investmentSchema })
+    const investment = await Investment.create(payload)
+    // const newInvestment = request.all() as Partial<Investment>
+    // const investment = await Investment.create(newInvestment)
+    return investment
+  }
+
+  public async store1({ request, response }) {
+    const investmentSchema = schema.create({
+      amount: schema.number(),
+      rolloverType: schema.string({ escape: true }, [rules.maxLength(3)]),
+      period: schema.string({ escape: true }, [rules.maxLength(100)]),
+      userId: schema.number(),
+      tagName: schema.string({ escape: true }, [rules.maxLength(150)]),
+      currencyCode: schema.string({ escape: true }, [rules.maxLength(5)]),
+      long: schema.number(),
+      lat: schema.number(),
     })
 
     const payload: any = await request.validate({ schema: investmentSchema })

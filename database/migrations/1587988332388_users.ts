@@ -16,8 +16,6 @@ export default class UsersSchema extends BaseSchema {
       table.date('date_of_birth').notNullable()
       table.string('password').notNullable()
       table.string('remember_me_token').nullable()
-      // table.float('long').nullable()
-      // table.float('lat').nullable()
       table.jsonb('address').nullable()
       table.string('account_type', 180).notNullable()
       table.string('sms_notification').notNullable()
